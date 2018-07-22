@@ -1,0 +1,17 @@
+extends layout
+block content
+      .maincontent
+        .row
+          h1 muscles
+        .conclusion
+          h2 Here are the main muscles you will have to study
+            .grid-container
+              each row in res1
+                .item
+                  h1.itemtitle #{row.Name}
+                  label origin: 
+                  p.itemp #{row.Origin}
+                  label insertion: 
+                  p.itemp #{row.Insertion}
+                  label action: 
+                  p.itemp #{row.Action}

@@ -334,12 +334,24 @@ app.get('/queryasanas', function(req,res){
 
 app.get('/muscle/:id', function(req, res){ // res.send("Hello cruel world!"); // This is commented out to allow the index view to be rendered  
   
-    let sql = "SELECT * FROM muscles WHERE Id = 2; "
+    let sql = 'SELECT * FROM muscles WHERE Id = "'+req.params.id+'"; '
     let query = db.query(sql, (err,res1)=>{
     if (err)throw (err);
-    res.render('item', {root: VIEWS, res1});
+    res.render('muscle', {root: VIEWS, res1});
     
   });
    //use render so that response objst renders html
-  console.log("Now you are on the item page!");
+  console.log("Now you are on the muscle page!");
+});//
+
+app.get('/asana/:id', function(req, res){ // res.send("Hello cruel world!"); // This is commented out to allow the index view to be rendered  
+  
+    let sql = 'SELECT * FROM asanas WHERE Id = "'+req.params.id+'"; '
+    let query = db.query(sql, (err,res1)=>{
+    if (err)throw (err);
+    res.render('asana', {root: VIEWS, res1});
+    
+  });
+   //use render so that response objst renders html
+  console.log("Now you are on the asana page!");
 });//
