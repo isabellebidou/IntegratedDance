@@ -1,23 +1,5 @@
-doctype html
-html
-  head
-    title isabelle Bidou- Web Application Dedelopment - CA3
-    meta(charset='UTF-8')
-    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
-    meta(name='viewport', content='width=device-width,initial-scale=1')
-    link(rel='stylesheet', href='app.css', type='text/css')
-  body
-    #container
-      .header
-        .imhold
-          img#logo.logoimg(alt='logo', src='/logowhiteresized.png')
-        h1.headertitle My Integrated Dance Instruction Program Experience
-        .navhold
-          .topnav
-            a(href='/') Home
-            a(href='/muscles') Muscles
-            a(href='#') Yoga asanas
-            a(href='#') Quiz
+extends layout
+block content
       .maincontent
         .intro
           p
@@ -37,6 +19,3 @@ html
           h2 How this website can help
           p
             | The idea is to offer fellow and future students a tool to recap and list on  muscles and yoga asanas.
-      .footer
-        p
-          | copyright 2018
