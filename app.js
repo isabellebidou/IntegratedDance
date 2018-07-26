@@ -18,8 +18,8 @@ app.use(express.static("images"));
 
 const db = mysql.createConnection({
   host: 'isabellebidou.com',
-  user: '******',
-  password:'******',
+  user: 'isabelle_isabelle',
+  password:'lelion66',
   database:'isabelle_db',
   port:3306
 });

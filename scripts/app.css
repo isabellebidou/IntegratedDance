@@ -40,7 +40,7 @@ h1,h2{
     margin-right: auto;
     float: left;
     margin-bottom: 10px;
-    font-size: 1.5em;
+    
     
 }
 
@@ -155,6 +155,8 @@ p{
   margin-right: 0.5em;
   margin-left: 0em;
   border-radius: 1%;
+  font-size: 1.2em;
+  font-style: oblique;
 }
     
 
@@ -209,7 +211,7 @@ p{
       
         display: none;
     }
-.grid-container {
+    .grid-container {
         margin:auto;
         color:#555;
         display: grid;
@@ -218,11 +220,12 @@ p{
         grid-gap: 1em;
          /* background-color: #2196F3;  Comment this out later to remove the background color when not needed */
         padding: 1em;
-}
+    }
 
 	#mobilemenu {
 		position: fixed;
 		top: 3em;
+		
 		right: 0.5em;
 		background: -webkit-linear-gradient(bottom, rgba(217,217,217,0.7),white,rgba(217,217,217,0.7) white); /* For Safari 5.1 to 6.0 */
 		background: -o-linear-gradient(bottom,  rgba(217,217,217,0.7),rgba(255,255,255,0.9),white,  rgba(255,255,255,0.9),rgba(217,217,217,0.7)); /* For Opera 11.1 to 12.0 */
@@ -237,9 +240,15 @@ p{
 		z-index: 70;
 		border-radius: 10%
 	}
-
+    .mobilemenuli{
+        line-height: 2.5em;
+        
+        
+        
+    }
 	#menubutton {
 		position: fixed;
+		font-style: oblique;
 		top: 1em;
 		right: 1em;
 		visibility: visible;
