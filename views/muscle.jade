@@ -1,14 +1,15 @@
 extends layout
 block content
       .maincontent
-        .row
-          h1 muscles
-        .conclusion
-          h2 Here are the main muscles you will have to study
+
+        
             .grid-container
               each row in res1
                 .item
                   h1.itemtitle #{row.Name}
+                  img.muscleimage(src="#{row.Image}", alt="row.Image")
+                  label illustration credits: 
+                  p.itemp #{row.Comments} 
                   label origin: 
                   p.itemp #{row.Origin}
                   label insertion: 
