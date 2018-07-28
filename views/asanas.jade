@@ -2,7 +2,7 @@ extends layout
 block content
       .maincontent
         
-          h2 Here are the main asanas you will have to study
+          h2 Here a sample of the asanas you will have to study
           
             .grid-container
               each row in res2
@@ -11,5 +11,7 @@ block content
                   h2.itemtitle #{row.Name}
                   label Sanskrit name: 
                   h2.itemtitle #{row.Sanskrit}
-                  a(href='#{row.Link}') Instructions
+                  a.button(href='#{row.Link}') Instructions
+                  a.button(href='/editasana/#{row.Id}') Edit
+                  a.button(href='/deleteasana/#{row.Id}') Delete
                   

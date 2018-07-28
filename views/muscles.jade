@@ -13,5 +13,7 @@ block content
                   p.itemp #{row.Insertion}
                   label action: 
                   p.itemp #{row.Action}
-                  a.button(href="/muscle/#{row.Id}") show
+                  a.button(href="/muscle/#{row.Id}") Show
+                  a.button(href="/editmuscle/#{row.Id}") Edit
+                  a.button(href="/deletemuscle/#{row.Id}") Delete
         

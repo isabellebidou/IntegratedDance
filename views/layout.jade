@@ -36,10 +36,11 @@ html
           .topnav
             a(href='/') Home
             a(href='/muscles') Muscles
-            a(href='#') add Muscles
+            a(href='/createmuscle') add Muscles
             a(href='asanas') Yoga asanas
-            a(href='#') add Yoga asanas
-            a(href='#') Quiz
+            a(href='/createasana') add Yoga asanas
+            a(href='/quiz') Quiz
+            a(href='/addquestion') add a Question
       block content
       button#menubutton
         | menu
@@ -50,13 +51,14 @@ html
           li
             a.mobilemenuli(href='/muscles') Muscles
           li
-            a.mobilemenuli(href='#') add Muscles
+            a.mobilemenuli(href='/createmuscle') add Muscles
           li
             a.mobilemenuli(href='/asanas') Yoga asanas
           li
-            a.mobilemenuli(href='#') add Yoga asanas
+            a.mobilemenuli(href='/createasana') add Yoga asanas
           li
-            a.mobilemenuli(href='#') Quiz
-    .footer
-      p
-        | copyright 2018
+            a.mobilemenuli(href='/quiz') Quiz
+          li
+            a.mobilemenuli(href='/addquestion') add a Question
+     .footer
+       p Isabelle Bidou - copyright 2018

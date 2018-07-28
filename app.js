@@ -7,20 +7,26 @@ var app = express();
 app.set('view engine', 'jade');
 
 var mysql = require('mysql');
+var bodyParser= require('body-parser');
 
 
 const path = require('path');
 const VIEWS = path.join(__dirname,'views');
 
+var fs= require("fs");
+
 app.use(express.static("scripts"));
 app.use(express.static("images"));
+app.use(express.static("models"));
+var questions = require("./models/questions.json");
+app.use(bodyParser.urlencoded({extended: true}));
 
 
 const db = mysql.createConnection({
-  host: 'isabellebidou.com',
+  host: '******.com',
   user: '******',
   password:'******',
-  database:'isabelle_db',
+  database:'*******',
   port:3306
 });
 db.connect((err) =>{
@@ -34,13 +40,15 @@ db.connect((err) =>{
 });
 
 
-//function to set up a simple hello response
+//home page
 app.get('/', function(req,res){
    // res.sendFile('index.html', {root: VIEWS},behaviour);
     res.render('index', {root: VIEWS});
     console.log('now you are home');
 });
 
+
+//muscles page
 app.get('/muscles', function(req,res){
    // res.sendFile('muscles.html', {root: VIEWS});
     
@@ -54,8 +62,58 @@ app.get('/muscles', function(req,res){
     console.log('now you are on Muscles');
 });
 
+//createmuscle page
+app.get('/createmuscle', function(req,res){
+   // res.sendFile('index.html', {root: VIEWS},behaviour);
+    res.render('createmuscle', {root: VIEWS});
+    console.log('now you ready to create a muscle');
+});
+
+//add entry to muscle table on post on button press
+app.post('/createmuscle', function(req,res){
+   let sql = 'INSERT INTO muscles (Name,Origin,Insertion,Action,Image,Comments,Link) VALUES ("'+req.body.name+'","'+req.body.origin+'","'+req.body.insertion+'","'+req.body.action+'","'+req.body.image+'","'+req.body.comments+'","'+req.body.link+'");'
+   
+  let query = db.query(sql,(err,res) =>{
+    if (err) throw err;
+    console.log(res);
+  });
+  
+  res.render('index', {root: VIEWS});
+    
+});
+
+//edit data of  muscle table entry on post on button press
+app.get('/editmuscle/:id', function(req,res){
+    let sql = 'SELECT * FROM muscles WHERE Id = "'+req.params.id+'"; '
+    let query = db.query(sql, (err,res1)=>{
+    if (err)throw (err);
+    res.render('editmuscle', {root: VIEWS,res1});
+    });
+});
+
+app.post('/editmuscle/:id', function(req,res){
+    let sql = 'UPDATE muscles SET Name= "'+req.body.newname+'" , Origin = "'+req.body.neworigin+'", Insertion = "'+req.body.newinsertion+'", Action = "'+req.body.newaction+'",Image = "'+req.body.newimage+'", Comments = "'+req.body.newcomments+'", Link = "'+req.body.newlink+'" WHERE Id = "'+req.params.id+'" ;'
+    
+    let query = db.query(sql, (err,res1)=>{
+    if (err)throw (err);
+    console.log(res1);
+    });
+    res.redirect(/muscle/+req.params.id);
+});
+
+
+app.get('/deletemuscle/:id', function(req,res){
+    let sql = 'DELETE FROM muscles WHERE Id = "'+req.params.id+'"; '
+    let query = db.query(sql, (err,res1)=>{
+    if (err)throw (err);
+    res.redirect('/muscles');
+    });
+});
+
+
+//asanas page
 app.get('/asanas', function(req,res){
-   // res.sendFile('muscles.html', {root: VIEWS});
+   
     
     let sql = 'SELECT * FROM asanas'
     let query = db.query(sql, (err, res2) => {
@@ -67,12 +125,56 @@ app.get('/asanas', function(req,res){
     console.log('now you are on Muscles');
 });
 
-// we need to set the requirements for the application to run
+app.get('/createasana', function(req,res){
+   
+    res.render('createasana', {root: VIEWS});
+    console.log('now you ready to create an asana');
+});
 
-app.listen(process.env.PORT || 3000, process.env.IP || '0.0.0.0', function(){
-    console.log("integrateddance app is running");
+//add data to asana table on post on button press
+app.post('/createasana', function(req,res){
+   let sql = 'INSERT INTO asanas (Name,Sanskrit,Comments,Link) VALUES ("'+req.body.englishname+'","'+req.body.sanskritname+'","'+req.body.comments+'","'+req.body.link+'");'
+
+  
+  let query = db.query(sql,(err,res) =>{
+    if (err) throw err;
+    console.log(res);
+  });
+  
+  res.render('index', {root: VIEWS});
     
 });
+
+//edit data of  asanas table entry on post on button press
+app.get('/editasana/:id', function(req,res){
+    let sql = 'SELECT * FROM asanas WHERE Id = "'+req.params.id+'"; '
+    let query = db.query(sql, (err,res1)=>{
+    if (err)throw (err);
+    res.render('editasana', {root: VIEWS,res1});
+    });
+  
+});
+
+app.post('/editasana/:id', function(req,res){
+    let sql = 'UPDATE asanas SET Name= "'+req.body.newenglishname+'" , Sanskrit = "'+req.body.newsanskritname+'", Comments = "'+req.body.newcomments+'", Link = "'+req.body.newlink+'"   WHERE Id = "'+req.params.id+'"; '
+
+    
+    let query = db.query(sql, (err,res1)=>{
+    if (err)throw (err);
+    console.log(res);
+    });
+    res.redirect(/asana/+req.params.id);
+});
+
+app.get('/deleteasana/:id', function(req,res){
+    let sql = 'DELETE FROM asanas WHERE Id = "'+req.params.id+'"; '
+    let query = db.query(sql, (err,res1)=>{
+    if (err)throw (err);
+    res.redirect('/asanas');
+    });
+});
+
+
 app.get('/dropmusclestable', function(req,res){
   
   let sql = 'DROP TABLE muscles;'
@@ -442,4 +544,42 @@ app.get('/asana/:id', function(req, res){ // res.send("Hello cruel world!"); // 
   });
    //use render so that response objst renders html
   console.log("Now you are on the asana page!");
-});//
+});
+
+
+//json manipulation
+app.get('/addquestion', function(req,res){
+   // res.sendFile('index.html', {root: VIEWS},behaviour);
+    res.render('addquestion', {root: VIEWS});
+    console.log('now you are on the quiz');
+});
+
+app.get("/quiz", function(req,res){
+    
+    res.render("quiz", {questions:questions}
+    );
+    console.log("quiz");
+});
+
+// app.post('/addquestion', function(req,res){
+    
+//     var count = Object.keys(questions.length);
+//     console.log(count);
+//     function getMax(questions, id){
+//         var max
+//         for (var i =0; i<questions.length; i++){
+//             if (!max || parseInt(questions[i][id])) > parseInt(max [id])
+//             max = questions[id]
+//         }
+//     }
+    
+// }});
+//end of json manipulation
+
+
+// we need to set the requirements for the application to run
+
+app.listen(process.env.PORT || 3000, process.env.IP || '0.0.0.0', function(){
+    console.log("integrateddance app is running");
+    
+});

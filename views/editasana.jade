@@ -1,0 +1,20 @@
+extends layout
+block content
+      
+    .maincontent
+        .formHold
+          h1.itemtitle Edit this asana
+          
+          each row in res1
+            form(method = "post")
+                fieldset
+                  label(for= "newenglishname") Asana Name in English:
+                  input(name= "newenglishname", type = "text", value = "#{row.Name}") 
+                  label(for= "newsanskritname") Asana Name in Sanskrit:
+                  input(name= "newsanskritname", type = "text", value = "#{row.Sanskrit}")
+                  label(for= "newcomments") Comments:
+                  input(name= "newcomments", type = "text", value = "#{row.Comments}") 
+                  label(for= "newlink") Link:
+                  input(name= "newlink", type = "text", value = "#{row.Link}") 
+                  button.button(type="submit") Update
+              

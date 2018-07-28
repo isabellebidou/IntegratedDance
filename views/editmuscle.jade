@@ -1,0 +1,25 @@
+extends layout
+block content
+      
+    .maincontent
+        .formHold
+          h1.itemtitle Edit this muscle
+          
+          each row in res1
+            form(method = "post")
+              fieldset
+                label(for= "newname") Muscle Name:
+                input(name= "newname", type = "text", value = "#{row.Name}") 
+                label(for= "neworigin") Origin:
+                input(name= "neworigin", type = "text", value = "#{row.Origin}") 
+                label(for= "newinsertion") Insertion:
+                input(name= "newinsertion", type = "text", value = "#{row.Insertion}") 
+                label(for= "newaction") Action:
+                input(name= "newaction", type = "text", value = "#{row.Action}") 
+                label(for= "newimage") Image:
+                input(name= "newimage", type = "text", value = "#{row.Image}")
+                label(for= "newcomments") Credits:
+                input(name= "newcomments", type = "text", value = "#{row.Comments}") 
+                label(for= "newlink") Link:
+                input(name= "newlink", type = "text", value = "#{row.Link}") 
+                button.button(type="submit") Update

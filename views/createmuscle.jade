@@ -1,0 +1,23 @@
+extends layout
+block content
+      
+    .maincontent
+        .formHold
+          h1.itemtitle Add a muscle
+          form(method = "POST")
+            fieldset
+              label(for= "name") Muscle Name:
+              input(name= "name", type = "text", placeholder = "muscle name") 
+              label(for= "origin") Origin:
+              input(name= "origin", type = "text", placeholder = "bone of origin") 
+              label(for= "insertion") Insertion:
+              input(name= "insertion", type = "text", placeholder = "bone of insertion") 
+              label(for= "action") Action:
+              input(name= "action", type = "text", placeholder = "action") 
+              label(for= "image") Image:
+              input(name= "image", type = "text", placeholder = "muscle.png")
+              label(for= "comments") Image:
+              input(name= "comments", type = "text", placeholder = "Photo by Nino Liverani on Unsplash") 
+              label(for= "link") Link:
+              input(name= "link", type = "text", placeholder = "somewebsite.com or some video on YouTube") 
+              button.button(type="submit") Create the muscle

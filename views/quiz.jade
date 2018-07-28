@@ -1,0 +1,10 @@
+extends layout
+block content
+      .maincontent
+        
+          h2 Here is a sample of the questions you need to be able to answer
+           .grid-container
+            each question in questions
+             .item
+              h1.itemtitle #{question.question}
+              p.itemp #{question.answer}
