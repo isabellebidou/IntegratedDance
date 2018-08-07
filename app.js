@@ -4,7 +4,7 @@ var app = express();
 //var behaviour = require('./behaviour.js');
 //const jsdom = require("jsdom");
 //const { JSDOM } = jsdom;//https://www.npmjs.com/package/jsdom
-
+var session = require('express-session');
 app.set('view engine', 'jade');
 var newId;
 var mysql = require('mysql');
@@ -15,7 +15,7 @@ const path = require('path');
 const VIEWS = path.join(__dirname,'views');
 
 var fs= require("fs");
-
+app.use(session({ secret: "topsecret" })); // Requird to make the session accessable throughouty the application
 app.use(express.static("scripts"));
 app.use(express.static("images"));
 app.use(express.static("models"));
@@ -46,6 +46,7 @@ app.get('/', function(req,res){
    // res.sendFile('index.html', {root: VIEWS},behaviour);
     res.render('index', {root: VIEWS});
     console.log('now you are home');
+    console.log('the status of this user is : '+req.session.email);
 });
 
 
@@ -148,11 +149,18 @@ app.post('/createasana', function(req,res){
 
 //edit data of  asanas table entry on post on button press
 app.get('/editasana/:id', function(req,res){
+    
+    if(req.session.email == "loggedIn"){
+        
+    
     let sql = 'SELECT * FROM asanas WHERE Id = "'+req.params.id+'"; '
     let query = db.query(sql, (err,res1)=>{
     if (err)throw (err);
     res.render('editasana', {root: VIEWS,res1});
     });
+    }else{
+        res.render('login',{root:VIEWS});
+    }
   
 });
 
@@ -729,6 +737,86 @@ app.post('/searchasanas', function(req, res){
  });
  
  console.log("Now you are on the products page!");
+});
+
+///*********************************login logout
+app.get('/createusertable', function(req,res){
+  
+  let sql = 'CREATE TABLE integrateddanceeusers (Id int NOT NULL AUTO_INCREMENT PRIMARY KEY, Name varchar(255), Email varchar(255), Password varchar(255), Admin varchar(255)) ;'
+
+  
+  let query = db.query(sql,(err,res) =>{
+    if (err) throw err;
+    console.log(res);
+    
+ });
+});
+
+// USE THE BELOW WITH CAUTION
+// app.get('/dropcreateusertable', function(req,res){
+  
+//   let sql = 'DROP TABLE integrateddanceeusers ;'
+
+  
+//   let query = db.query(sql,(err,res) =>{
+//     if (err) throw err;
+//     console.log(res);
+    
+//  });
+// });
+
+app.get('/register', function(req,res){
+    res.render('register', {root:VIEWS});
+});
+
+app.post('/register', function(req,res){
+    
+    db.query('INSERT INTO integrateddanceeusers(Name, Email, Password, Admin) VALUES("'+req.body.name+'","'+req.body.email+'","'+req.body.password+'","'+req.body.role+'")');
+    
+    req.session.email = "loggedIn";
+   // req.session.who = req.body.name;
+    res.redirect('/');
+    
+    
+});
+
+app.get('/login', function(req,res){
+    res.render('login', {root:VIEWS});
+});
+
+
+app.post('/login', function(req, res) {
+  var whichOne = req.body.name;
+  var whichPass = req.body.password;
+  
+   let sql2 = 'SELECT name, password FROM integrateddanceeusers WHERE name= "'+whichOne+'"'
+   let query = db.query(sql2, (err, res2) => {
+    if(err) throw err;
+    console.log(res2);
+    
+    var passx= res2[0].password;
+    var passxn= res2[0].name;
+    console.log("You logged in with " + passx + " and name " + passxn );
+    req.session.email = "LoggedIn";
+  
+    if(passx == whichPass){
+    console.log("It Worked! Logged in with: " + passx + " , " + whichPass);
+    
+   res.redirect("/");
+   
+  }
+  else{res.redirect("login");}
+   //res.render("index.jade");
+    //res.render("showit.jade", {res1,res2});
+  });
+ 
+  });
+  
+  
+  app.get('/logout', function(req, res){
+  res.render('index', {root: VIEWS});
+  console.log("Now you loggedout!");
+  req.session.destroy(session.email);
 });
 
 // we need to set the requirements for the application to run
