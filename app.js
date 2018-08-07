@@ -1,11 +1,12 @@
 var express = require("express");// call expresss to be used by application
 var app = express();
+
 //var behaviour = require('./behaviour.js');
 //const jsdom = require("jsdom");
 //const { JSDOM } = jsdom;//https://www.npmjs.com/package/jsdom
 
 app.set('view engine', 'jade');
-
+var newId;
 var mysql = require('mysql');
 var bodyParser= require('body-parser');
 
@@ -23,10 +24,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 const db = mysql.createConnection({
-  host: '******.com',
-  user: '******',
-  password:'******',
-  database:'*******',
+  host: 'isabellebidou.com',
+  user: 'isabelle_isabelle',
+  password:'Thelion71',
+  database:'isabelle_db',
   port:3306
 });
 db.connect((err) =>{
@@ -546,7 +547,7 @@ app.get('/asana/:id', function(req, res){ // res.send("Hello cruel world!"); // 
   console.log("Now you are on the asana page!");
 });
 
-
+//----------------------------------
 //json manipulation
 app.get('/addquestion', function(req,res){
    // res.sendFile('index.html', {root: VIEWS},behaviour);
@@ -561,21 +562,174 @@ app.get("/quiz", function(req,res){
     console.log("quiz");
 });
 
-// app.post('/addquestion', function(req,res){
-    
-//     var count = Object.keys(questions.length);
-//     console.log(count);
-//     function getMax(questions, id){
-//         var max
-//         for (var i =0; i<questions.length; i++){
-//             if (!max || parseInt(questions[i][id])) > parseInt(max [id])
-//             max = questions[id]
-//         }
-//     }
-    
-// }});
+app.post('/addquestion', function(req, res){
+	var count = Object.keys(questions).length; // Tells us how many products we have its not needed but is nice to show how we can do this
+	console.log(count);
+	
+	// This will look for the current largest id in the questions JSON file this is only needed if you want the questions to have an auto ID which is a good idea 
+	
+	function getMax(questions , id) {
+		var max
+		for (var i=0; i<questions.length; i++) {
+			if(!max || parseInt(questions[i][id]) > parseInt(max[id]))
+				max = questions[i];
+			
+		}
+		return max;
+	}
+	
+	var maxPpg = getMax(questions, "id"); // This calls the function above and passes the result as a variable called maxPpg.
+	newId = maxPpg.id + 1;  // this creates a nwe variable called newID which is the max Id + 1
+	console.log(newId); // We console log the new id for show reasons only
+	
+	// create a new product based on what we have in our form on the add page 
+	
+	var question = {
+		question: req.body.question, // name called from the add.jade page textbox
+		 
+		answer: req.body.answer, // content called from the add.jade page textbox
+		id: newId,// this is the variable created above
+
+	};
+		console.log(question) // Console log the new product 
+	var json  = JSON.stringify(questions); // Convert from object to string
+	
+	// The following function reads the json file then pushes the data from the variable above to the questions JSON file. 
+	fs.readFile('./models/questions.json', 'utf8', function readFileCallback(err, data){
+							if (err){
+		throw(err);
+	 }else {
+		questions.push(question); // add the information from the above variable
+		json = JSON.stringify(questions, null , 4); // converted back to JSON the 4 spaces the json file out so when we look at it it is easily read. So it indents it. 
+		fs.writeFile('./models/questions.json', json, 'utf8'); // Write the file back
+		
+	}});
+	res.redirect("/quiz")
+});;
+
+// End JSON
 //end of json manipulation
 
+// render editquestion. filter the editquestion looking for any review that has the id
+
+
+// app.get('/editreviews/:id', function(req, res){
+//  function chooseProd(indOne){
+//   return indOne.id === parseInt(req.params.id)
+  
+//  }
+ 
+//  console.log("Id of this review is " + req.params.id);
+//  // declare a variable called indOne which is a filter of reviews based on the filtering function above 
+//   var indOne = reviews.filter(chooseProd);
+//  // pass the filtered JSON data to the page as indOne
+//  res.render('editreview' , {indOne:indOne});
+//   console.log("Edit Review Page Shown");
+//  });
+
+
+
+
+
+app.get('/editquestion/:id', function(req,res){
+    
+    function chooseQuestion(indOne){
+        return indOne.id === parseInt(req.params.id)
+    }
+    
+    
+    
+    console.log("id or question= "+req.params.id);
+    console.log("editquestion");
+    var indOne = questions.filter(chooseQuestion);
+    
+    res.render('editquestion', {indOne:indOne});
+});
+
+
+
+// Create post request to edit the individual review
+// app.post('/editreviews/:id', function(req, res){
+//  var json = JSON.stringify(reviews);
+//  var keyToFind = parseInt(req.params.id); // Id passed through the url
+//  var data = reviews; // declare data as the reviews json file
+//  var index = data.map(function(review){review.id}).keyToFind // use the paramater passed in the url as a pointer to find the correct review to edit
+//   //var x = req.body.name;
+//  var y = req.body.content
+//  var z = parseInt(req.params.id)
+//  reviews.splice(index, 1, {name: req.body.name, content: y, id: z});
+//  json = JSON.stringify(reviews, null, 4);
+//  fs.writeFile('./models/reviews.json', json, 'utf8'); // Write the file back
+//  res.redirect("/reviews");
+// });
+
+// end post request to edit the individual review
+//post request to edit the individual question
+app.post('/editquestion/:id', function(req,res){
+    
+var json = JSON.stringify(questions);
+var keyToFind = parseInt(req.params.id);
+var data = questions;
+var index = data.map(function(question){question.id}).keyToFind; // use the parmeter as a pointer to find the correct question to edit
+var x = req.body.newquestion;
+var y = req.body.newanswer;
+var z = parseInt(req.params.id);
+
+questions.splice(index, 1, {question : x, answer:y, id:z});
+json = JSON.stringify(questions, null, 4);
+
+fs.writeFile('./models/questions.json', json, 'utf8');
+res.redirect("/quiz");
+
+});
+
+app.get("/deletequestion/:id", function(req,res){
+var json = JSON.stringify(questions, null, 4);
+var keyToFind = parseInt(req.params.id);
+var data = questions;
+var index = data.map(function(d){d['id'];}).indexOf(keyToFind);
+questions.splice(index,1);
+fs.writeFile('./models/questions.json', json, 'utf8');
+res.redirect("/quiz");
+    
+});
+
+
+
+
+// function to render the muscles page
+app.post('/searchmuscles', function(req, res){
+ // res.send("Hello cruel world!"); // This is commented out to allow the index view to be rendered
+ //let sql = 'SELECT * FROM muscles WHERE Name LIKE "%'+req.body.search+'%" OR Origin LIKE "%'+req.body.search+'%" OR Insertion LIKE "%'+req.body.search+'%" OR Action LIKE "%'+req.body.search+'%";'
+ let sql = 'SELECT * FROM muscles WHERE Name LIKE "%'+req.body.search+'%";'
+ let query = db.query(sql, (err, res1) =>{
+  if(err)
+  throw(err);
+ 
+  res.render('muscles', {root: VIEWS, res1}); // use the render command so that the response object renders a HHTML page
+  //console.log("I Set a Session as shown on products page" + req.session.email);
+  console.log("searchmuscles");
+ });
+ 
+ console.log("Now you are on the products page!");
+});
+
+// function to render the asanas page
+app.post('/searchasanas', function(req, res){
+ 
+ //let sql = 'SELECT * FROM muscles WHERE Name LIKE "%'+req.body.search+'%" OR Origin LIKE "%'+req.body.search+'%" OR Insertion LIKE "%'+req.body.search+'%" OR Action LIKE "%'+req.body.search+'%";'
+ let sql = 'SELECT * FROM asanas WHERE Name LIKE "%'+req.body.search+'%";'
+ let query = db.query(sql, (err, res2) =>{
+  if(err)
+  throw(err);
+ 
+  res.render('asanas', {root: VIEWS, res2}); // use the render command so that the response object renders a HHTML page
+  //console.log("I Set a Session as shown on products page" + req.session.email);
+  console.log("searchasanas");
+ });
+ 
+ console.log("Now you are on the products page!");
+});
 
 // we need to set the requirements for the application to run
 

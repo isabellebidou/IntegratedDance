@@ -1,6 +1,10 @@
 extends layout
 block content
       .maincontent
+          form(method="post" action="/searchmuscles")
+              label(for="search") Search:
+              input(name="search", type="text", Placeholder="Search For...") 
+              button.button(type="submit") Search
         
           h2 Here is a sample of the muscles you will have to study
             .grid-container
@@ -16,4 +20,4 @@ block content
                   a.button(href="/muscle/#{row.Id}") Show
                   a.button(href="/editmuscle/#{row.Id}") Edit
                   a.button(href="/deletemuscle/#{row.Id}") Delete
-        
+          

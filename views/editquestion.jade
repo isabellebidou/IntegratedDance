@@ -1,0 +1,15 @@
+extends layout
+block content
+      
+    .maincontent
+        .formHold
+          h1.itemtitle Edit this Question
+          
+          each question in indOne
+            form(method = "post")
+                fieldset
+                  label(for= "newquestion") Question:
+                  input(name= "newquestion", type = "text", value = "#{question.question}") 
+                  label(for= "newanswer") Answer:
+                  input(name= "newanswer", type = "text", value = "#{question.answer}")
+                  button.button(type="submit") Update

@@ -1,6 +1,11 @@
 extends layout
 block content
       .maincontent
+          form(method="post" action="/searchasanas")
+              label(for="search") Search:
+              input(name="search", type="text", Placeholder="Search For...") 
+              button.button(type="submit") Search
+      
         
           h2 Here a sample of the asanas you will have to study
           

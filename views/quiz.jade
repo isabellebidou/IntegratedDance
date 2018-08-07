@@ -8,3 +8,5 @@ block content
              .item
               h1.itemtitle #{question.question}
               p.itemp #{question.answer}
+              a.button(href='/editquestion/#{question.id}') Edit
+              a.button(href='/deletequestion/#{question.id}') Delete
