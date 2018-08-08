@@ -1,37 +1,32 @@
 [
     {
-        "question": "What muscle abducts the thigh?",
-        "answer": "sartorius",
-        "id": 2
-    },
-    {
-        "question": "What muscle abducts the thigh?",
-        "answer": "Sartorius",
-        "id": 2
-    },
-    {
-        "question": "What muscle rotates the head to the opposite side?",
-        "answer": "Sternocleidomastoid",
-        "id": 3
+        "question": "what are the hamstrings muscles?",
+        "answer": "Biceps femoris, semimembranosus, semitendinosus once again",
+        "id": 1
     },
     {
         "question": "What muscles flexes the neck?",
         "answer": "Scalenus posterior, Sternocleidomastoid, scalenus anterior, scalenus medius",
+        "id": 2
+    },
+    {
+        "question": "what are the hamstrings muscles?",
+        "answer": "Biceps femoris, semimembranosus, semitendinosus",
+        "id": 3
+    },
+    {
+        "question": "what muscle protracts the scapula?",
+        "answer": "supraspinatus, deltoid ( anterior, middle posterior )",
         "id": 4
     },
     {
-        "question": "What muscles mediali rotates the humerus at the shoulder?",
-        "answer": "Latissimus dorsi, Teres Major ",
+        "question": "what muscles abducts the humerus?",
+        "answer": "Biceps femoris, semimembranosus, semitendinosus",
         "id": 5
     },
     {
-        "question": "What muscle flexes the hip?",
-        "answer": "Psoas Major, Iliacus ",
+        "question": "what muscle protracts the scapula?",
+        "answer": "supraspinatus, deltoid anterior, middle posterior ",
         "id": 6
-    },
-    {
-        "question": "dummy",
-        "answer": "dummy",
-        "id": 7
     }
 ]

@@ -6,7 +6,7 @@ var app = express();
 //const { JSDOM } = jsdom;//https://www.npmjs.com/package/jsdom
 var session = require('express-session');
 app.set('view engine', 'jade');
-var newId;
+//var newId;
 var mysql = require('mysql');
 var bodyParser= require('body-parser');
 
@@ -25,8 +25,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 const db = mysql.createConnection({
   host: 'isabellebidou.com',
-  user: '******',
-  password:'******',
+  user: 'isabelle_isabelle',
+  password:'Thelion71',
   database:'isabelle_db',
   port:3306
 });
@@ -150,7 +150,7 @@ app.post('/createasana', function(req,res){
 //edit data of  asanas table entry on post on button press
 app.get('/editasana/:id', function(req,res){
     
-    if(req.session.email == "loggedIn"){
+ //   if(req.session.email == "loggedIn"){
         
     
     let sql = 'SELECT * FROM asanas WHERE Id = "'+req.params.id+'"; '
@@ -158,9 +158,9 @@ app.get('/editasana/:id', function(req,res){
     if (err)throw (err);
     res.render('editasana', {root: VIEWS,res1});
     });
-    }else{
-        res.render('login',{root:VIEWS});
-    }
+    // }else{
+    //     res.render('login',{root:VIEWS});
+    // }
   
 });
 
@@ -587,7 +587,8 @@ app.post('/addquestion', function(req, res){
 	}
 	
 	var maxPpg = getMax(questions, "id"); // This calls the function above and passes the result as a variable called maxPpg.
-	newId = maxPpg.id + 1;  // this creates a nwe variable called newID which is the max Id + 1
+	console.log(maxPpg);
+	var newId = maxPpg.id + 1;  // this creates a nwe variable called newID which is the max Id + 1
 	console.log(newId); // We console log the new id for show reasons only
 	
 	// create a new product based on what we have in our form on the add page 
@@ -604,7 +605,7 @@ app.post('/addquestion', function(req, res){
 	
 	// The following function reads the json file then pushes the data from the variable above to the questions JSON file. 
 	fs.readFile('./models/questions.json', 'utf8', function readFileCallback(err, data){
-							if (err){
+	if (err){
 		throw(err);
 	 }else {
 		questions.push(question); // add the information from the above variable
@@ -674,17 +675,13 @@ app.get('/editquestion/:id', function(req,res){
 // end post request to edit the individual review
 //post request to edit the individual question
 app.post('/editquestion/:id', function(req,res){
-    
-var json = JSON.stringify(questions);
-var keyToFind = parseInt(req.params.id);
-var data = questions;
-var index = data.map(function(question){question.id}).keyToFind; // use the parmeter as a pointer to find the correct question to edit
+
 var x = req.body.newquestion;
 var y = req.body.newanswer;
 var z = parseInt(req.params.id);
 
-questions.splice(index, 1, {question : x, answer:y, id:z});
-json = JSON.stringify(questions, null, 4);
+questions.splice(z, 1, {question : x, answer:y, id:z});
+var json = JSON.stringify(questions, null, 4);
 
 fs.writeFile('./models/questions.json', json, 'utf8');
 res.redirect("/quiz");
@@ -692,22 +689,30 @@ res.redirect("/quiz");
 });
 
 app.get("/deletequestion/:id", function(req,res){
+questions.splice(parseInt(req.params.id),1);
 var json = JSON.stringify(questions, null, 4);
-var keyToFind = parseInt(req.params.id);
-var data = questions;
-var index = data.map(function(d){d['id'];}).indexOf(keyToFind);
-questions.splice(index,1);
 fs.writeFile('./models/questions.json', json, 'utf8');
+recalibrate();
 res.redirect("/quiz");
     
 });
+// this is used after you delete a question to keep numbers in order
+function recalibrate(){
+    
+    var x = 0;
+    for (x; x<questions.length; x++){
+        questions[x].id = x+1;
+        
+    }
+    var json = JSON.stringify(questions, null, 4);
+    fs.writeFile('./models/questions.json', json, 'utf8');
+}
 
 
 
 
 // function to render the muscles page
 app.post('/searchmuscles', function(req, res){
- // res.send("Hello cruel world!"); // This is commented out to allow the index view to be rendered
  //let sql = 'SELECT * FROM muscles WHERE Name LIKE "%'+req.body.search+'%" OR Origin LIKE "%'+req.body.search+'%" OR Insertion LIKE "%'+req.body.search+'%" OR Action LIKE "%'+req.body.search+'%";'
  let sql = 'SELECT * FROM muscles WHERE Name LIKE "%'+req.body.search+'%";'
  let query = db.query(sql, (err, res1) =>{
@@ -715,7 +720,6 @@ app.post('/searchmuscles', function(req, res){
   throw(err);
  
   res.render('muscles', {root: VIEWS, res1}); // use the render command so that the response object renders a HHTML page
-  //console.log("I Set a Session as shown on products page" + req.session.email);
   console.log("searchmuscles");
  });
  
