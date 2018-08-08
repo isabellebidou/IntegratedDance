@@ -1,0 +1,17 @@
+extends layout
+block content
+      .maincontent
+        .formHold
+          h1.itemtitle Register
+          form(method = "POST")
+            fieldset
+              label(for= "name") Name:
+              input(name= "name", type = "text", placeholder = "enter name") 
+              label(for= "email") Email:
+              input(name= "email", type = "text", placeholder = "enter email")
+              label(for= "password") Password:
+              input(name= "password", type = "text", placeholder = "enter password")
+              label(for= "role") Password:
+              input(name= "role", type = "text", placeholder = "admin")
+              
+              button.button(type="submit") Create the account
