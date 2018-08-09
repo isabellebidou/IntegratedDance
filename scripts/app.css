@@ -1,17 +1,18 @@
-#container{
+html{
     position: absolute;
     height: 100%;
     width:100%;
     
-	background: url(/olenka-kotyk2.png) no-repeat center center fixed;   /*146,146,146*/
+	background: url(/olenka-kotyk2.png) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-    background-color: #555;
+    
 }
 h1,h2{
     color: white;
+    
 }
 .headertitle{
     color:white;
@@ -19,7 +20,9 @@ h1,h2{
     width: 80%;
     font-style: oblique;
     left:25%;
+    font-size:3em;
     top:10%;
+    font-family: "Brush Script MT", "Lucida Console", Monaco, monospace;
 }
 #logo{
     position:absolute;
@@ -32,7 +35,7 @@ h1,h2{
 .navhold{
   
     position:absolute;
-    left:25%;
+    right: 5%;
     top:70%;
     text-align: center;
     width: 80%;
@@ -47,9 +50,10 @@ h1,h2{
 .footer{
     color:white;
     position: absolute;
-    width:100%;
-    height: 10%;
+    width:15%;
+    height: 7%;
     bottom:1%;
+    left:40%;
     text-align: center;
     margin:auto;
     font-size: 0.5em;
@@ -162,12 +166,14 @@ p{
 
 
 .item {
-  background-color: rgba(255, 255, 255, 0.6);
+  
   text-align: center;
   padding:0.5em 0;
   margin-right: 0.5em;
   margin-left: 0.5em;
+  background-color: rgba(255, 255, 255, 0.6);
   border-radius: 1%;
+  
   
  
 }
@@ -176,6 +182,7 @@ p{
 #itemsContainer {
     width: 100%;
     text-align: center;
+   
     
     
 }
@@ -198,7 +205,16 @@ p{
     text-align: center;
     padding: 4px 6px;
     text-decoration: none;
-    font-size: 16px
+    font-size: 1em;
+     background-color: rgba(255, 255, 255, 0.6); 
+     border-radius: 1%;
+    
+}
+label{
+    color: #7f5f87;
+    font-size: 1em;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 1%;
     
 }
 .button {
@@ -373,6 +389,28 @@ input[type=submit]:hover {
     display: inline-block;
     width: 100%;
     height:80%;
+}
+.headertitle{
+    color:white;
+    position:absolute;
+    width: 80%;
+    font-style: oblique;
+    left:25%;
+    font-size:2em;
+    top:10%;
+    font-family: "Brush Script MT", "Lucida Console", Monaco, monospace;
+}
+.footer{
+    color:white;
+    position: absolute;
+    width:50%;
+    height: 2%;
+    bottom:1%;
+    left:20%;
+    text-align: center;
+    margin:auto;
+    font-size: 0.5em;
+    
 }
 
 }
