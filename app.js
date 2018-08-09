@@ -25,8 +25,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 const db = mysql.createConnection({
   host: 'isabellebidou.com',
-  user: '******',
-  password:'******',
+  user: '*******',
+  password:'*******',
   database:'isabelle_db',
   port:3306
 });
@@ -116,15 +116,15 @@ app.get('/deletemuscle/:id', function(req,res){
 //asanas page
 app.get('/asanas', function(req,res){
    
-    
+    console.log("logedIn ? "+ req.session.email);
     let sql = 'SELECT * FROM asanas'
     let query = db.query(sql, (err, res2) => {
     if(err) throw err;
-    console.log(res2);
+    //console.log(res2);
 
     res.render('asanas.jade', {root: VIEWS,res2});
   });
-    console.log('now you are on Muscles');
+    console.log('now you are on asanas');
 });
 
 app.get('/createasana', function(req,res){
@@ -150,7 +150,7 @@ app.post('/createasana', function(req,res){
 //edit data of  asanas table entry on post on button press
 app.get('/editasana/:id', function(req,res){
     
- //   if(req.session.email == "loggedIn"){
+   if(req.session.email == "LoggedIn"){
         
     
     let sql = 'SELECT * FROM asanas WHERE Id = "'+req.params.id+'"; '
@@ -158,9 +158,9 @@ app.get('/editasana/:id', function(req,res){
     if (err)throw (err);
     res.render('editasana', {root: VIEWS,res1});
     });
-    // }else{
-    //     res.render('login',{root:VIEWS});
-    // }
+    }else{
+        res.redirect('/login');
+    }
   
 });
 
@@ -736,7 +736,7 @@ app.post('/searchasanas', function(req, res){
   throw(err);
  
   res.render('asanas', {root: VIEWS, res2}); // use the render command so that the response object renders a HHTML page
-  //console.log("I Set a Session as shown on products page" + req.session.email);
+  //console.log("I Set a Session as shown on asanas page" + req.session.email);
   console.log("searchasanas");
  });
  
@@ -777,7 +777,7 @@ app.post('/register', function(req,res){
     
     db.query('INSERT INTO integrateddanceeusers(Name, Email, Password, Admin) VALUES("'+req.body.name+'","'+req.body.email+'","'+req.body.password+'","'+req.body.role+'")');
     
-    req.session.email = "loggedIn";
+    req.session.email = "LoggedIn";
    // req.session.who = req.body.name;
     res.redirect('/');
     
@@ -801,11 +801,11 @@ app.post('/login', function(req, res) {
     var passx= res2[0].password;
     var passxn= res2[0].name;
     console.log("You logged in with " + passx + " and name " + passxn );
-    req.session.email = "LoggedIn";
+    
   
     if(passx == whichPass){
     console.log("It Worked! Logged in with: " + passx + " , " + whichPass);
-    
+    req.session.email = "LoggedIn";
    res.redirect("/");
    
   }
