@@ -24,8 +24,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = mysql.createConnection({
     host: 'isabellebidou.com',
-    user: 'isabelle_isabelle',
-    password: 'Thelion71',
+    user: '******',
+    password: '******',
     database: 'isabelle_db',
     port: 3306
 });
