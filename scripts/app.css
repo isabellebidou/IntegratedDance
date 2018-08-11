@@ -21,7 +21,7 @@ h1,h2{
     font-style: oblique;
     left:25%;
     font-size:3em;
-    top:10%;
+    top:4%;
     font-family: "Brush Script MT", "Lucida Console", Monaco, monospace;
 }
 #logo{
@@ -35,7 +35,7 @@ h1,h2{
 .navhold{
   
     position:absolute;
-    right: 5%;
+    right: 8%;
     top:70%;
     text-align: center;
     width: 80%;
@@ -74,7 +74,6 @@ h1,h2{
     right:10%;
     top:22%;
     overflow-y: scroll;
-    
     padding: 1em;
     background-color: rgba(77, 77, 77,0.5);
 }
@@ -325,42 +324,6 @@ input[type=submit]:hover {
 	.muscleimage{
     width:100%;
     }
- 
-    .left {
-         
-        
-       width: 90%;
-        right:5%;
-       
-        
-        height:90%;
-        display: inline-block;
-        background-image: url('/marion-michelesmall.png');
-        background-repeat:no-repeat;
-        background-size:cover;
-        
-        
-        
-    
-    }
-    
-    .right {
-  
-        width: 90%;
-        right:5%;
-       
-        
-        height:90%;
-        vertical-align:top;
-        display: inline-block;
-        background-image: url('/dave-contrerassmall.png');
-        background-repeat:no-repeat;
-        background-size:cover;
-        
-        
-        
-        
-}
 
     .maincontent{
         color:white;
@@ -378,17 +341,44 @@ input[type=submit]:hover {
         padding:0.3em;
         text-align: justify;
     }
-    .intro, .conclusion{
-        position: absolute;
-        width: 90%;
-        height:20%;
-        overflow:scroll;
-    }
-    .row {
+
+
+ 
+    .left {
+   
+        width: 100%;
+        right:5%;
+        height:90%;
+        display: inline-block;
+        background-image: url('/marion-michelesmall.png');
+        background-repeat:no-repeat;
+        background-size:cover;
+        float:clear;
+}
     
+    
+    .right {
+  
+        width: 100%;
+        right:10%;
+        height:90%;
+        vertical-align:top;
+        display: inline-block;
+        background-image: url('/dave-contrerassmall.png');
+        background-repeat:no-repeat;
+        background-size:cover;
+        float:none;
+}
+.row {
+    display: -webkit-flex;
     display: inline-block;
     width: 100%;
-    height:80%;
+    height:90%;
+}
+.intro,.conclusion{
+    position:static;
+    width: 100%;
+    height:90%;
 }
 .headertitle{
     color:white;
