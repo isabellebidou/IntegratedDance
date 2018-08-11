@@ -6,8 +6,8 @@ block content
           form(method = "POST")
             fieldset
               label(for= "name") Name:
-              input(name= "name", type = "text", placeholder = "enter name") 
+              input(name= "name", type = "text", placeholder = "enter name", required) 
               label(for= "password") Password:
-              input(name= "password", type = "text", placeholder = "enter password")
+              input(name= "password", type = "password", placeholder = "enter password", required)
               
               button.button(type="submit") Login

@@ -7,11 +7,7 @@ html
     meta(name='viewport', content='width=device-width,initial-scale=1')
     link(rel='stylesheet', href='../app.css', type='text/css')
     script.
-      // $(document).ready(function() {
-      // $("#mobilemenu").mouseout(function() {
-      // $("#mobilemenu").hide();
-      // });
-      // });
+
       $(window).resize(function(){location.reload();}); 
       $(document).ready(function() {
       $("#menubutton").mousin(function() {
@@ -23,7 +19,7 @@ html
       });
       $(document).ready(function() {
       $(".mobilemenuli,#menubutton").click(function(){
-      $("#mobilemenu").toggle();
+      $("#mobilemenu").slideToggle();
       });
       });
   body

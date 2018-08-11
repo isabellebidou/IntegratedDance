@@ -6,11 +6,11 @@ block content
           form(method = "POST")
             fieldset
               label(for= "name") Name:
-              input(name= "name", type = "text", placeholder = "enter name") 
+              input(name= "name", type = "text", placeholder = "enter name", required) 
               label(for= "email") Email:
-              input(name= "email", type = "text", placeholder = "enter email")
+              input(name= "email", type = "text", pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$", placeholder = "enter email", required)
               label(for= "password") Password:
-              input(name= "password", type = "text", placeholder = "enter password")
+              input(name= "password", type = "text", placeholder = "enter password", required)
               label(for= "role") Password:
               input(name= "role", type = "text", placeholder = "admin")
               

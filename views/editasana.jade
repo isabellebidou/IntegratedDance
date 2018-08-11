@@ -9,12 +9,12 @@ block content
             form(method = "post")
                 fieldset
                   label(for= "newenglishname") Asana Name in English:
-                  input(name= "newenglishname", type = "text", value = "#{row.Name}") 
+                  input(name= "newenglishname", type = "text", value = "#{row.Name}", required) 
                   label(for= "newsanskritname") Asana Name in Sanskrit:
-                  input(name= "newsanskritname", type = "text", value = "#{row.Sanskrit}")
+                  input(name= "newsanskritname", type = "text", value = "#{row.Sanskrit}", required)
                   label(for= "newcomments") Comments:
                   input(name= "newcomments", type = "text", value = "#{row.Comments}") 
                   label(for= "newlink") Link:
-                  input(name= "newlink", type = "text", value = "#{row.Link}") 
+                  input(name= "newlink", type = "text", value = "#{row.Link}",required) 
                   button.button(type="submit") Update
               

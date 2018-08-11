@@ -9,17 +9,17 @@ block content
             form(method = "post")
               fieldset
                 label(for= "newname") Muscle Name:
-                input(name= "newname", type = "text", value = "#{row.Name}") 
+                input(name= "newname", type = "text", value = "#{row.Name}", required) 
                 label(for= "neworigin") Origin:
-                input(name= "neworigin", type = "text", value = "#{row.Origin}") 
+                input(name= "neworigin", type = "text", value = "#{row.Origin}", required) 
                 label(for= "newinsertion") Insertion:
-                input(name= "newinsertion", type = "text", value = "#{row.Insertion}") 
+                input(name= "newinsertion", type = "text", value = "#{row.Insertion}", required) 
                 label(for= "newaction") Action:
-                input(name= "newaction", type = "text", value = "#{row.Action}") 
+                input(name= "newaction", type = "text", value = "#{row.Action}", required) 
                 label(for= "newimage") Image:
-                input(name= "newimage", type = "text", value = "#{row.Image}")
+                input(name= "newimage", type = "text", value = "#{row.Image}", required)
                 label(for= "newcomments") Credits:
-                input(name= "newcomments", type = "text", value = "#{row.Comments}") 
+                input(name= "newcomments", type = "text", value = "#{row.Comments}", required) 
                 label(for= "newlink") Link:
-                input(name= "newlink", type = "text", value = "#{row.Link}") 
+                input(name= "newlink", type = "text", value = "#{row.Link}", required) 
                 button.button(type="submit") Update

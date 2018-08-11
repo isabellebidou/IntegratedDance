@@ -7,17 +7,17 @@ block content
           form(method = "POST")
             fieldset
               label(for= "name") Muscle Name:
-              input(name= "name", type = "text", placeholder = "muscle name") 
+              input(name= "name", type = "text", placeholder = "muscle name", required) 
               label(for= "origin") Origin:
-              input(name= "origin", type = "text", placeholder = "bone of origin") 
+              input(name= "origin", type = "text", placeholder = "bone of origin", required) 
               label(for= "insertion") Insertion:
-              input(name= "insertion", type = "text", placeholder = "bone of insertion") 
+              input(name= "insertion", type = "text", placeholder = "bone of insertion", required) 
               label(for= "action") Action:
-              input(name= "action", type = "text", placeholder = "action") 
+              input(name= "action", type = "text", placeholder = "action", required) 
               label(for= "image") Image:
-              input(name= "image", type = "text", placeholder = "muscle.png")
+              input(name= "image", type = "text", placeholder = "enter the link to an image hosted online")
               label(for= "comments") Credits:
-              input(name= "comments", type = "text", placeholder = "Photo by Nino Liverani on Unsplash") 
+              input(name= "comments", type = "text", placeholder = "Photo by Nino Liverani on Unsplash", required) 
               label(for= "link") Link:
-              input(name= "link", type = "text", placeholder = "somewebsite.com or some video on YouTube") 
+              input(name= "link", type = "text", placeholder = "somewebsite.com or some video on YouTube", required) 
               button.button(type="submit") Create the muscle

@@ -1,7 +1,7 @@
 var express = require("express");// call expresss to be used by application
 var app = express();
 
-//var behaviour = require('./behaviour.js');
+var behaviour = require('./behaviour.js');
 //const jsdom = require("jsdom");
 //const { JSDOM } = jsdom;//https://www.npmjs.com/package/jsdom
 var session = require('express-session');
@@ -25,8 +25,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 const db = mysql.createConnection({
   host: 'isabellebidou.com',
-  user: '*******',
-  password:'*******',
+  user: 'isabelle_isabelle',
+  password:'Thelion71',
   database:'isabelle_db',
   port:3306
 });
